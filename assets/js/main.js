@@ -1,62 +1,54 @@
-let longueur = 8;
-let hauteur = 3;
+const longueur = 10;
+const hauteur = 10;
+const earth = {
+    name:`Terre`,
+    water:true,
+    x:4,
+    y:5
+};
+const mars = {
+    name: `Mars`,
+    water:false,
+    x:7,
+    y:2
+};
+const planets = [ 
+    mars,
+    earth
 
-let testTabl = `<table>
-    <tr>
-        <td>
-            X
-        </td>
-        <td>
-            A
-        </td>
-        <td>
-            B
-        </td>
-        <td>
-            C
-        </td>
-    </tr>
-    <tr>
-        <td>
-            1
-        </td>
-        <td>
-            
-        </td>
-        <td>
-            
-        </td>
-        <td>
-            
-        </td>
-    </tr>
-    <tr>
-        <td>
-            2
-        </td>
-        <td>
-            
-        </td>
-        <td>
-            
-        </td>
-        <td>
-            
-        </td>
-    </tr>
-</table>`;
+];
+let drawnPlanets = {};
 
-let body = document.querySelector("body");
-
-let tablFin = `<table>`;
-
-for(let i = 0; i < hauteur; i++){
-    tablFin += `<tr>`;
-    for(let j = 0; j < longueur; j++){
-        tablFin += `<td> ${j} / ${i} </td>`;
-    }
-    tablFin += `</tr>`;
+const drawContent = (x, y) => {
+    
+   
 }
-tablFin += `</table>`;
 
-body.innerHTML += tablFin;
+const drawMap = (w, h) => {
+
+    let body = document.querySelector("body");
+    let tablFin = `<table>`;
+
+    for(let i = 0; i < h; i++){
+        tablFin += `<tr>`;
+        for(let j = 0; j < w; j++){
+            let content;
+            planets.forEach(planet => {
+                if(planet.x == j && planet.y == i){
+                    content = `<img src="assets/img/${planet.name}.png" alt="${planet.name}">`;
+                }
+            });
+            tablFin += `<td> ${content} </td>`;
+        }
+        tablFin += `</tr>`;
+    }
+    tablFin += `</table>`;
+
+    body.innerHTML += tablFin;
+}
+
+const removeMap = () => {
+    const tableau = document.querySelector("table:last-of-type");
+    tableau.innerHTML = null;
+};
+drawMap(longueur, hauteur);
