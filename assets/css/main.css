@@ -76,8 +76,25 @@ img {
     position: relative;
     z-index: 1; /* carte en arrière-plan */
 }
-
-main {
-    position: relative;
-    z-index: 2; /* main au dessus de la carte */
+.resource-icon {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.resource-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.resource-prod {
+    color: green;
+}
+.resource-cons {
+    color: red;
+}
+.resource-next {
+    color: blue;
+}
+.resource-progress {
+    width: 100%;
+    height: 20px;
+    margin: 0;
 }
