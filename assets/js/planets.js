@@ -70,6 +70,12 @@ class Planet {
     get ironCons(){
         return this._buildings.refinery * 5;
     }
+    get plasmaProd(){
+        return this._buildings.refinery * 5 + 10;
+    }
+    get plasmaCons(){
+        return 0;
+    }
     get ironStock(){
         return this._stock.iron;
     }
@@ -77,7 +83,7 @@ class Planet {
         return this._stock.iron + this.ironProd - this.ironCons;
     }
     get plasmaRest(){
-        return this._stock.plasma - this._cons.plasma;
+        return this._stock.plasma;
     }
     resourcesEnough(cost){
         let enough = true;
@@ -90,11 +96,18 @@ class Planet {
         }
         return enough;
     }
-    createMine(cost){
+    plasmaUpdate(){
+        this._stock.plasma += this.plasmaProd - this.plasmaCons;
+    }
+    createBuilding(cost, building){
         if(this.resourcesEnough(cost)){
-            this._buildings.mine++;
+            this._buildings[building]++;
             for(const resource in cost){
                 this._stock[resource] -= cost[resource];
+                if(resource == "plasma"){
+                    this._cons[resource] = cost[resource];
+                    this.plasmaUpdate();
+                }
             }
         }else{
             console.log(`Not enough resources to create mine on ${this._name}`);
@@ -102,8 +115,9 @@ class Planet {
     }
     update(){
         this._counter++;
-        if(this._counter == 15){
+        if(this._counter == 3){
             this._stock.iron += this.ironProd - this.ironCons;
+            this.plasmaUpdate();
             this._counter = 0;
         }
     }
